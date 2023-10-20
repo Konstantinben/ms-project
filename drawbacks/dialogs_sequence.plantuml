@@ -1,0 +1,44 @@
+@startuml
+actor "User 1" as user1
+actor "User 2" as user2
+participant "Dialog\nService" as dialog
+participant "Post\nService" as post
+database "Postgre SQL\nShard N" as db
+queue "Redis\nPub/Sub" as redis
+
+== User 1 sends a message to User 2 ==
+user1 -> dialog : send message to user2
+dialog -> dialog: calculate dialog\nshard key
+note left
+  hash_key =
+  (user1_uuid, user2_uuid)
+  ->sort->concat->hash
+end note
+dialog -> dialog: calculate shard\nby shard key
+dialog -> db: store message
+dialog -> redis: send message to "dialogs" Redis topic
+dialog --> user1 : created message
+
+== User 2 reads dialog with User 1 ==
+user2 -> dialog: get dialog with user1
+dialog -> dialog: calculate dialog\nshard key
+dialog -> dialog: calculate shard\nby shard key
+dialog -> db: load dialog\n(messaged sorted by date)
+dialog --> user2: dialog
+user2 -> post: open websocket connection
+note right
+  listen messages
+  for user2_uuid
+end note
+redis ->o post: receive message from "dialog" topics
+post -> post: extract destination from message\n
+note left
+  destination = user2_uuid
+end note
+alt  #cornsilk websocket opened
+post ->o user2: send message via websocket
+
+end alt
+
+
+@enduml

@@ -1,0 +1,324 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: deployment-social-core
+  labels: 
+    type: deployment-social-core
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        release: prom
+  template:
+    metadata:
+      labels:
+        app: social-core
+        release: prom
+    spec:
+      containers:
+        - name: social-core
+          image: kpolyanichko/social-core:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.user
+            - name: DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.password
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.pgcore.url
+            - name: DB_READ_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.pgcore.url
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: admin.user.email
+            - name: ADMIN_UUID
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: admin.user.uuid
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: jwt.secret
+            - name: REDIS_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+            - name: REDIS_HOST
+              value: "redis-master"
+            - name: DIALOG_SERVICE_URI
+              value: "social-dialog:8080"
+            - name: AUTH_SERVICE_URI
+              value: "social-auth:8080"
+            - name: APP_PORT
+              value: "8080"
+---
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: deployment-social-auth
+  labels:
+    type: deployment-social-auth
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      release: prom
+  template:
+    metadata:
+      labels:
+        app: social-auth
+        release: prom
+    spec:
+      containers:
+        - name: social-auth
+          image: kpolyanichko/social-auth:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.user
+            - name: DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.password
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.pgauth.url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: jwt.secret
+            - name: APP_PORT
+              value: "8080"
+---
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: deployment-social-post
+  labels:
+    type: deployment-social-post
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      release: prom
+  template:
+    metadata:
+      labels:
+        app: social-post
+        release: prom
+    spec:
+      containers:
+        - name: social-post
+          image: kpolyanichko/social-post:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: admin.user.email
+            - name: ADMIN_UUID
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: admin.user.uuid
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: jwt.secret
+            - name: REDIS_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+            - name: REDIS_HOST
+              value: "redis-master"
+            - name: APP_PORT
+              value: "8080"
+---
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: deployment-social-dialog
+  labels:
+    type: deployment-social-dialog
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      release: prom
+  template:
+    metadata:
+      labels:
+        app: social-dialog
+        release: prom
+    spec:
+      containers:
+        - name: social-dialog
+          image: kpolyanichko/social-dialog:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.user
+            - name: DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.password
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: postgres.pgdialog.url
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: admin.user.email
+            - name: ADMIN_UUID
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: admin.user.uuid
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ms-project-secrets
+                  key: jwt.secret
+            - name: AUTH_SERVICE_URI
+              value: "social-auth:8080"
+            - name: APP_PORT
+              value: "8080"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: social-core
+  labels:
+    app: social-core
+    release: prom
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  selector:
+    app: social-core
+    release: prom
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: social-auth
+  labels:
+    app: social-auth
+    release: prom
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  selector:
+    app: social-auth
+    release: prom
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: social-post
+  labels:
+    app: social-post
+    release: prom
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  selector:
+    app: social-post
+    release: prom
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: social-dialog
+  labels:
+    app: social-dialog
+    release: prom
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  selector:
+    app: social-dialog
+    release: prom
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

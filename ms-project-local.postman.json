@@ -1,0 +1,1419 @@
+{
+	"info": {
+		"_postman_id": "bffe2ed2-0946-4a1a-915c-22ff037c7dd0",
+		"name": "ms-project local IDE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5562917"
+	},
+	"item": [
+		{
+			"name": "/auth - Регистрация пользователя 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"accountId1 is \" + jsonData.accountId);\r",
+							"if(typeof jsonData.accountId !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"accountId1\", jsonData.accountId);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"  let rand1 = Math.random() * 100000;\r",
+							"  rand1 = Math.floor(rand1);\r",
+							"  console.log('Index1 ' + rand1);\r",
+							"  pm.collectionVariables.set(\"index1\", rand1);\r",
+							"\r",
+							"  let rand2 = Math.random() * 100000;\r",
+							"  rand2 = Math.floor(rand2);\r",
+							"  console.log('Index2 ' + rand2);\r",
+							"  pm.collectionVariables.set(\"index2\", rand2);\r",
+							"\r",
+							"    let rand3 = Math.random() * 100000;\r",
+							"  rand3 = Math.floor(rand3);\r",
+							"  console.log('Index3 ' + rand3);\r",
+							"  pm.collectionVariables.set(\"index3\", rand3);\r",
+							"\r",
+							"    let rand4 = Math.random() * 100000;\r",
+							"  rand4 = Math.floor(rand4);\r",
+							"  console.log('Index4 ' + rand4);\r",
+							"  pm.collectionVariables.set(\"index4\", rand4);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index1}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Регистрация пользователя 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"accountId2 is \" + jsonData.accountId);\r",
+							"if(typeof jsonData.accountId !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"accountId2\", jsonData.accountId);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index2}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Регистрация пользователя 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"accountId3 is \" + jsonData.accountId);\r",
+							"if(typeof jsonData.accountId !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"accountId3\", jsonData.accountId);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index3}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Регистрация пользователя 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"accountId4 is \" + jsonData.accountId);\r",
+							"if(typeof jsonData.accountId !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"accountId4\", jsonData.accountId);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index4}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Вход пользователя 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"token1 is \" + jsonData.token);\r",
+							"if(typeof jsonData.token !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"token1\", jsonData.token);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index1}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Вход пользователя 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"token2 is \" + jsonData.token);\r",
+							"if(typeof jsonData.token !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"token2\", jsonData.token);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index2}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Вход пользователя 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"token3 is \" + jsonData.token);\r",
+							"if(typeof jsonData.token !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"token3\", jsonData.token);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index3}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth - Вход пользователя 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData= pm.response.json();\r",
+							"console.log(\"token4 is \" + jsonData.token);\r",
+							"if(typeof jsonData.token !== \"undefined\") {\r",
+							"pm.collectionVariables.set(\"token4\", jsonData.token);\r",
+							"}\r",
+							"\r",
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"new{{index4}}@new.ru\",\r\n        \"password\": \"new\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8087/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/update Update Profile 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"First 1 {{index1}}\",\r\n    \"lastName\": \"Last 1 {{index1}}\",\r\n    \"birthdate\": \"2017-02-03\",\r\n    \"gender\": \"F\",\r\n    \"biography\": \"Biography\",\r\n    \"age\": 18,\r\n    \"uuid\": \"{{accountId1}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/update Update Profile 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"First 2 {{index1}}\",\r\n    \"lastName\": \"Last 2 {{index1}}\",\r\n    \"birthdate\": \"2017-02-03\",\r\n    \"gender\": \"M\",\r\n    \"biography\": \"Biography\",\r\n    \"age\": 18,\r\n    \"uuid\": \"{{accountId2}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/update Update Profile 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"First 3 {{index1}}\",\r\n    \"lastName\": \"Last 3 {{index1}}\",\r\n    \"birthdate\": \"2017-02-03\",\r\n    \"gender\": \"F\",\r\n    \"biography\": \"Biography\",\r\n    \"age\": 18,\r\n    \"uuid\": \"{{accountId3}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/update Update Profile 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token4}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"First 4 {{index1}}\",\r\n    \"lastName\": \"Last 4 {{index1}}\",\r\n    \"birthdate\": \"2017-02-03\",\r\n    \"gender\": \"F\",\r\n    \"biography\": \"Biography\",\r\n    \"age\": 18,\r\n    \"uuid\": \"{{accountId4}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/friend/set/ Пользователь 3 добавляет в друзья пользователя 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/friend/set/{{accountId1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"friend",
+						"set",
+						"{{accountId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/friend/set/ Пользователь 3 добавляет в друзья пользователя 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/friend/set/{{accountId2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"friend",
+						"set",
+						"{{accountId2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/friend/set/ Пользователь 4 добавляет в друзья пользователя 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token4}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/friend/set/{{accountId1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"friend",
+						"set",
+						"{{accountId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/friend/set/ Пользователь 4 добавляет в друзья пользователя 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token4}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/friend/set/{{accountId3}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"friend",
+						"set",
+						"{{accountId3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/post/create Пользователь 1 - добавляет пост",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"test message 1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/post/create/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/post/create Пользователь 2 - добавляет пост",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"user 2 message\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/post/create/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/post/create Пользователь 3 - добавляет пост",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonRequestData= pm.request.body.raw;\r",
+							"console.log\r",
+							"console.log('Request: ' + jsonRequestData)\r",
+							"\r",
+							"let jsonResponseData= pm.response.json();\r",
+							"console.log\r",
+							"console.log('Response: ' + JSON.stringify(jsonResponseData))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"user 3 message\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/post/create/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Посмотреть посты пользователя 1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8088/post/user/{{accountId1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"user",
+						"{{accountId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Посмотреть посты пользователя 2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8088/post/user/{{accountId2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"user",
+						"{{accountId2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Посмотреть посты пользователя 3",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8088/post/user/{{accountId3}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"user",
+						"{{accountId3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Посмотреть ленту постов друзей пользователя 3",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token3}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8088/post/feed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Посмотреть ленту постов друзей пользователя 4",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token4}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8088/post/feed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"post",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1 /dialog/{uuid}/send Отправить сообщение пользователя 1 пользователю 2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"Hello from 1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/api/v1/dialog/{{accountId2}}/send",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"v1",
+						"dialog",
+						"{{accountId2}}",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1 /dialog/{uuid}/send Отправить сообщение пользователя 2 пользователю 1 Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"Hello 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/api/v1/dialog/{{accountId2}}/send",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"v1",
+						"dialog",
+						"{{accountId2}}",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/dialog/{uuid}/get Dialog Get Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8089/api/v1/dialog/{{accountId2}}/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"v1",
+						"dialog",
+						"{{accountId2}}",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "index1",
+			"value": ""
+		},
+		{
+			"key": "index2",
+			"value": ""
+		},
+		{
+			"key": "index3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "index4",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token4",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "accountId1",
+			"value": "initial",
+			"type": "string"
+		},
+		{
+			"key": "accountId2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "accountId3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "accountId4",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

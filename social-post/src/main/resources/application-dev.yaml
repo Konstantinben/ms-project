@@ -1,0 +1,65 @@
+server:
+  port: ${APP_PORT:8080}
+  shutdown: immediate
+  error.include-stacktrace: never
+
+springdoc:
+  show-actuator: true
+  swagger-ui.path: /api.html
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      discovery:
+        enabled: false
+      exposure:
+        include: prometheus, metrics, info, health
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      cache.time-to-live: 100ms
+      probes.enabled: true
+      show-details: always
+      show-components: always
+
+logging:
+  appender: ${LOGGING_APPENDERS:stdout}
+  root:
+    level: DEBUG
+  level:
+    otus.ms.social: DEBUG
+    org.springframework: DEBUG
+
+spring:
+  application:
+    name: social-post
+  redis:
+    database: 0
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    password: ${REDIS_PWD:}
+    timeout: 20000
+
+app:
+  jwt:
+    secret: megaTopSecret
+    expiration: 100500000
+    header: Authorization
+  redis:
+    cache:
+      bulk-update-size: 20
+      feed-size: 1000
+    topics:
+      post-create-friends: post-create-friends

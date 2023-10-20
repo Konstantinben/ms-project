@@ -1,0 +1,51 @@
+@startuml
+actor "User 1" as user1
+actor "User 2" as user2
+actor "User 3" as user3
+actor "User 4" as user4
+
+participant "Core\nService" as core
+participant "Post\nService" as post
+participant "Dialog\nService" as dialog
+participant "Auth\nService" as auth
+
+== API Demo ==
+user1 -> auth: signup, login
+user2 -> auth: signup, login
+user3 -> auth: signup, login
+user4 -> auth: signup, login
+user3 -> core: add friend user1
+user3 -> core: add friend user2
+user4 -> core: add friend user1
+user4 -> core: add friend user3
+user1 -> core: add post1
+user2 -> core: add post2
+user3 -> core: add post3
+user1 -> core: get user1 posts
+user1 -> core: get user2 posts
+user1 -> core: get user3 posts
+user3 -> core: get feed
+user4 -> core: get feed
+user1 -> dialog: send message to user2
+user2 -> dialog: send message to user1
+user1 -> dialog: get dialog with user2
+== Websockets Demo ==
+user3 -> post: open websocket connection in browser page
+user4 -> post: open websocket connection in browser page
+user1 -> core: add post1
+note right
+  user 3 and user 4 receive the message
+end note
+post -->o user3:
+post -->o user4:
+user2 -> core: add post2
+note right
+  user 3 only receives the message
+end note
+post -->o user3:
+user3 -> core: add post3
+note right
+  user 4 only receives the message
+end note
+post -->o user4:
+@enduml

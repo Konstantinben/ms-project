@@ -1,0 +1,83 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: social-core
+  labels:
+    app: social-core
+    release: prom
+spec:
+  endpoints:
+    - port: http
+      path: '/actuator/prometheus'
+      scheme: http
+      interval: 5s
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: social-core
+      release: prom
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: social-auth
+  labels:
+    app: social-auth
+    release: prom
+spec:
+  endpoints:
+    - port: http
+      path: '/actuator/prometheus'
+      scheme: http
+      interval: 5s
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: social-auth
+      release: prom
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: social-post
+  labels:
+    app: social-post
+    release: prom
+spec:
+  endpoints:
+    - port: http
+      path: '/actuator/prometheus'
+      scheme: http
+      interval: 5s
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: social-post
+      release: prom
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: social-dialog
+  labels:
+    app: social-dialog
+    release: prom
+spec:
+  endpoints:
+    - port: http
+      path: '/actuator/prometheus'
+      scheme: http
+      interval: 5s
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: social-dialog
+      release: prom

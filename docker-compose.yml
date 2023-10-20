@@ -1,0 +1,272 @@
+version: '3.5'
+
+networks:
+  pgnet:
+  monitoring:
+  redisnet:
+  appnet:
+
+volumes:
+  grafana-data:
+  grafana:
+  prometheus:
+
+services:
+
+#  social-nginx:
+#    image: nginx:latest
+#    container_name: social-nginx
+#    volumes:
+#      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+#    ports:
+#      - 80:80
+#      - 443:443
+#    networks:
+#      - appnet
+#    depends_on:
+#      - social-auth
+#      - social-core
+#      - social-post
+#      - social-dialog
+
+  social-grafana:
+    container_name: social-grafana
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    networks:
+      - pgnet
+      - redisnet
+      - monitoring
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards/red.dashboard.json:/etc/grafana/provisioning/dashboards/main.json
+      - ./grafana/provisioning/dashboards:/var/lib/grafana/dashboards
+      - ./grafana-data:/var/lib/grafana
+
+#  social-prometheus:
+#    container_name: social-prometheus
+#    image: prom/prometheus
+#    ports:
+#      - 9090:9090
+#    volumes:
+#      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+#    networks:
+#      - pgnet
+#      - redisnet
+#      - monitoring
+#      - appnet
+#    depends_on:
+#      - pgexp-pgcore
+#      - pgexp-pgdialog
+#      - pgexp-pgauth
+#      - social-auth
+#      - social-core
+#      - social-post
+#      - social-dialog
+
+  social-redis:
+    container_name: social-redis
+    image: redis:latest
+    command: redis-server
+    volumes:
+      - ./volumes/redis/:/var/lib/redis
+      - ./volumes/redis-config/:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    networks:
+      - redisnet
+
+  social-redis-commander:
+    container_name: social-redis-commander
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:social-redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=pass
+    ports:
+      - 8081:8081
+    networks:
+      - redisnet
+    depends_on:
+      - social-redis
+
+  pgcore:
+    container_name: pgcore
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./volumes/pgcore/:/var/lib/postgresql/data
+    networks:
+      - pgnet
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+
+  pgauth:
+    container_name: pgauth
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./volumes/pgauth/:/var/lib/postgresql/data
+    networks:
+      - pgnet
+    ports:
+      - 15432:5432
+    restart: unless-stopped
+
+  pgdialog:
+    container_name: pgdialog
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./volumes/pgdialog/:/var/lib/postgresql/data
+    networks:
+      - pgnet
+    ports:
+      - 35432:5432
+    restart: unless-stopped
+
+  pgexp-pgcore:
+    container_name: pgexp-pgcore
+    image: prometheuscommunity/postgres-exporter
+#    ports:
+#      - 9187:9187
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:pass@pgcore:5432/postgres?sslmode=disable"
+    networks:
+      - pgnet
+      - monitoring
+    links:
+      - pgcore
+    depends_on:
+      - pgcore
+        
+  pgexp-pgdialog:
+    container_name: pgexp-pgdialog
+    image: prometheuscommunity/postgres-exporter
+#    ports:
+#      - 19187:9187
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:pass@pgdialog:5432/postgres?sslmode=disable"
+    networks:
+      - pgnet
+      - monitoring
+    links:
+      - pgdialog
+    depends_on:
+      - pgdialog
+
+  pgexp-pgauth:
+    container_name: pgexp-pgauth
+    image: prometheuscommunity/postgres-exporter
+#    ports:
+#      - 19187:9187
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:pass@pgauth:5432/postgres?sslmode=disable"
+    networks:
+      - pgnet
+      - monitoring
+    links:
+      - pgauth
+    depends_on:
+      - pgauth
+
+#  social-post:
+#    image: 'kpolyanichko/social-post:latest'
+#    build:
+#      context: .
+#    container_name: social-post
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - social-redis
+#    environment:
+#      - REDIS_HOST=social-redis
+#    networks:
+#      - redisnet
+#      - appnet
+
+#  social-core:
+#    image: 'kpolyanichko/social-core:latest'
+#    build:
+#      context: .
+#    container_name: social-core
+#    ports:
+#      - 8088:8080
+#    depends_on:
+#      - pgcore
+#      - social-redis
+#    environment:
+#      - DB_URL=jdbc:postgresql://pgcore:5432/postgres
+#      - DB_READ_URL=jdbc:postgresql://pgcore:5432/postgres
+#      - DB_PWD=pass
+#      - DB_USER=postgres
+#      - REDIS_HOST=social-redis
+#      - DIALOG_SERVICE_URI=social-dialog:8080
+#    networks:
+#      - pgnet
+#      - redisnet
+#      - appnet
+
+#  social-auth:
+#    image: 'kpolyanichko/social-auth:latest'
+#    build:
+#      context: .
+#    container_name: social-auth
+#    ports:
+#      - 8087:8080
+#    depends_on:
+#      - pgauth
+#    environment:
+#      - DB_URL=jdbc:postgresql://pgauth:5432/postgres
+#      - DB_PWD=pass
+#      - DB_USER=postgres
+#    networks:
+#      - pgnet
+#      - appnet
+
+
+#  social-dialog:
+#    image: 'kpolyanichko/social-dialog:latest'
+#    build:
+#      context: .
+#    container_name: social-dialog
+#    ports:
+#      - 8089:8080
+#    depends_on:
+#      - pgdialog
+#    environment:
+#      - DB_URL=jdbc:postgresql://pgdialog:5432/postgres
+#      - DB_PWD=pass
+#      - DB_USER=postgres
+#      - AUTH_SERVICE_URI=social-auth:8080
+#    networks:
+#      - pgnet
+#      - appnet

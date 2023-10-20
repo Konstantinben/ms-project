@@ -1,0 +1,71 @@
+@startuml
+actor User as user
+participant "nginx\nIngress Controller" as nginx
+participant "Core\nservice" as core
+participant "Auth\nservice" as auth
+
+
+== Auth Service - Signup ==
+user -> nginx : POST auth/signup
+nginx -> auth : POST /singup
+alt #LightBlue account does not exist
+auth --> user : account uuid
+else #Pink account already exists
+auth --> user : error 400
+end alt
+== Auth Service - Login ==
+user -> nginx : POST auth/login
+nginx -> auth : POST /login
+alt #LightBlue credentials are correct
+auth --> user : jwt token
+else #Pink incorrect credentials
+auth --> user : error 403
+end alt
+
+
+== Core Service - Store/Update Profile ==
+user -> nginx : PUT core/user/update/{uuid} Update Profile
+nginx -> core : PUT user/update/{uuid}
+group #cornsilk validation
+core -> core : validate JWT token
+core -> auth : GET /admin - get registered user
+alt #LightBlue user registered
+auth --> core : user
+else #Pink user not registered
+auth --> core : error 400
+core --> user : error 401
+end alt
+core -> core : validate user role permitted for the action
+core -> core : validate is uuid belongs to user
+alt #LightBlue role validated and uuid validated
+core --> user : updated profile
+else #Pink role not permitted / uuid belongs to another user
+core --> user : error 403
+end alt
+end group
+
+== Core Service - Get Profile ==
+user -> nginx : GET /core/user/get/{uuid} View Profile
+nginx -> core : GET /user/{uuid}
+group #cornsilk validation
+core -> core : validate JWT token
+core -> auth : GET /admin - get registered user
+alt #LightBlue user registered
+auth --> core : user
+core --> user : profile
+else #Pink user not registered
+auth --> core : error 400
+core --> user : error 403
+end alt
+/'core -> core : validate is uuid belongs to user
+alt #LightBlue uuid validated
+else #Pink uuid belongs to another user
+core --> user : error 403
+end alt
+end group
+alt #LightBlue user registered
+core --> user : profile
+else #Pink account user not registered
+core --> user : error 401
+end alt'/
+@enduml

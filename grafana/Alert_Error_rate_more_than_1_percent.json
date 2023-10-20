@@ -1,0 +1,87 @@
+apiVersion: 1
+groups:
+- orgId: 1
+name: 20s
+folder: MS Social Net
+interval: 20s
+rules:
+- uid: cc17856e-fdd0-4e51-aa69-fbc5d284264c
+title: ERROR_RATE_MORE_THAN_1_PERCENT
+condition: C
+data:
+- refId: A
+relativeTimeRange:
+from: 600
+to: 0
+datasourceUid: prometheus
+model:
+editorMode: code
+expr: sum(increase(http_server_requests_seconds_count{uri!="/actuator/prometheus", status=~"4.+|5.+"}[1m])) / sum(increase(http_server_requests_seconds_count{uri!="/actuator/prometheus"}[1m])) > 0.01
+instant: true
+intervalMs: 1000
+legendFormat: __auto
+maxDataPoints: 43200
+range: false
+refId: A
+- refId: B
+relativeTimeRange:
+from: 600
+to: 0
+datasourceUid: __expr__
+model:
+conditions:
+- evaluator:
+params: []
+type: gt
+operator:
+type: and
+query:
+params:
+- B
+reducer:
+params: []
+type: last
+type: query
+datasource:
+type: __expr__
+uid: __expr__
+expression: A
+intervalMs: 1000
+maxDataPoints: 43200
+reducer: last
+refId: B
+type: reduce
+- refId: C
+relativeTimeRange:
+from: 600
+to: 0
+datasourceUid: __expr__
+model:
+conditions:
+- evaluator:
+params:
+- 0
+type: gt
+operator:
+type: and
+query:
+params:
+- C
+reducer:
+params: []
+type: last
+type: query
+datasource:
+type: __expr__
+uid: __expr__
+expression: B
+intervalMs: 1000
+maxDataPoints: 43200
+refId: C
+type: threshold
+noDataState: NoData
+execErrState: Error
+for: 30s
+annotations:
+summary: Error rate > 1%
+isPaused: false
